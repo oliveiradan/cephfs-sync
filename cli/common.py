@@ -232,7 +232,15 @@ def snapshot_dir(src_path='', suffix=''):
 
 def rsync_dir(src_path='', target_dir=''):
     if src_path and target_dir:
-        rsync_cmd = 'rsync -avzh {} root@{}'.format(src_path, target_dir)
+        """
+            If we are using '-e ssh', we can also do:
+                $ rsync -aHAXxv --numeric-ids --delete --progress -e \ 
+                    "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
+
+            Tested with Gbit Network and got 40MB/s -> up to 64MB/s.
+            Also, on SSD to SSD transfer, up to 110MB/s.
+        """
+        rsync_cmd = 'rsync -aHAXxv --numeric-ids --delete --progress {} root@{}'.format(src_path, target_dir)
         rc, stdout, stderr = eval_launcher_returns(cmd=rsync_cmd, 
                                                     check_cmd_success=True, 
                                                     handout_err_msg=True)
