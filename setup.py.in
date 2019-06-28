@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+CEPHFSSYNC_VERSION = 'DEVVERSION'
+
+
+def _get_cephfs_sync_version():
+    return CEPHFSSYNC_VERSION
+
+
+setup(
+    name='cephfs_sync',
+    version=_get_cephfs_sync_version(),
+    package_dir={
+        'cephfs_sync': 'cli'
+    },
+    packages=['cephfs_sync'],
+    entry_points={
+        'console_scripts': [
+            'cephfs_sync = cephfs_sync:main'
+        ]
+    },
+    tests_require=['pytest']
+)

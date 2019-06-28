@@ -1,12 +1,8 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # pylint: disable=too-many-branches,too-many-statements
 """
 CephFS-Sync CLI
-"""
-
-"""
-from __future__ import absolute_import
-from __future__ import print_function
 """
 
 import logging.config
@@ -18,25 +14,26 @@ import sys
 import time
 
 import click
+import pkg_resources
 import yaml
 
-from config import Config
-from common import has_root_privileges
-from common import PrettyPrinter as PP, PrettyFormat as PF
-from common import log_timefy
-from common import does_file_exist
-from common import does_dir_exist
-from common import does_tool_exist
-from common import is_it_cephfs
-from common import is_snapshot_enabled
-from common import is_it_cephfs_snapshot_enabled
-from common import snapshot_dir
-from common import rsync_dir
-from common import check_host_address
-from common import ping_host
-from common import get_txt_indented
-from common import get_txt_dedented
-from common import ssh_host
+from cephfs_sync.config import Config
+from cephfs_sync.common import has_root_privileges
+from cephfs_sync.common import PrettyPrinter as PP, PrettyFormat as PF
+from cephfs_sync.common import log_timefy
+from cephfs_sync.common import does_file_exist
+from cephfs_sync.common import does_dir_exist
+from cephfs_sync.common import does_tool_exist
+from cephfs_sync.common import is_it_cephfs
+from cephfs_sync.common import is_snapshot_enabled
+from cephfs_sync.common import is_it_cephfs_snapshot_enabled
+from cephfs_sync.common import snapshot_dir
+from cephfs_sync.common import rsync_dir
+from cephfs_sync.common import check_host_address
+from cephfs_sync.common import ping_host
+from cephfs_sync.common import get_txt_indented
+from cephfs_sync.common import get_txt_dedented
+from cephfs_sync.common import ssh_host
 
 
 logger = logging.getLogger(__name__)
@@ -317,7 +314,7 @@ def _run_remote_sync(srcdir, target_host, target_directory):
         timestamp = log_timefy()
         snap_dir = '/.snap/' + timestamp
         local_src_snap_dir = srcdir + snap_dir
-        remote_target_dir = target_host + ':' + target_directory +  '/' + timestamp
+        remote_target_dir = target_host + ':' + target_directory 
         remote_target_snap_dir = remote_target_dir + snap_dir
         """ Step #1: On $source, snapshot the tree. """
         rc, stdout, stderr = snapshot_dir(srcdir, timestamp)
@@ -330,7 +327,7 @@ def _run_remote_sync(srcdir, target_host, target_directory):
         """ Step #2. Sync $source/snap to $target, restarting as required 
             We are using rsync here, but this could be any other mechanism.
         """
-        rc, stdout, stderr = rsync_dir(local_src_snap_dir, remote_target_dir)
+        rc, stdout, stderr = rsync_dir(local_src_snap_dir, remote_target_dir, Config.LOG_FILE_PATH)
         if rc != 0:
             raise Exception('Error while running rsync. \
                             Error message: {}'.format(stderr))
@@ -347,7 +344,6 @@ def _run_remote_sync(srcdir, target_host, target_directory):
         else:
             status_message=('Target directory [{}] does not support *Snapshotting* ... '.format(target_directory))
             _dispatch_msg(message=status_message, flag=PF.OK, font=PP.Colors.BOLD, indent=(indent * 2))
-
 
 
 @click.command()
@@ -384,4 +380,3 @@ def cli(conf_file, log_level, log_file, dry_run, verbose):
 if __name__ == "__main__":
     os.system('clear')
     cli()
-

@@ -1,0 +1,69 @@
+.TH cephfs_sync 1 "CephFS_Sync CLI man page"
+.SH NAME
+CephFS_Sync CLI
+
+.SH SYNOPSIS
+Usage: cephfs_sync.py [OPTIONS]
+
+  CephFS_Sync CLI.
+
+Options:
+  -c, --conf-file FILE            .yml config file to be used for directory
+                                  structure synchronization. (default: '' ).
+                                  [required]
+  -l, --log-level [info|error|debug|silent]
+                                  sets log level (default: info)
+  --log-file FILE                 the file path for the log to be stored
+                                  (default: /var/log/cephfs-sync.log).
+  --dry-run                       Checks for the config file and results.
+  --verbose                       prints verbose messages.
+  --help                          Show this message and exit.
+
+.SH DESCRIPTION
+CephFS_Sync CLI is a tool for synchronizing CephFS Snapshots to a remote 
+server/cluster.
+
+There are two modes for visualizing the sync execution progress.
+.RS
+.RE
+.B 1) dry-run:
+visualizes the execution progress of a DeepSea stage triggered by a
+.RS
+.RE
+.B 2) verbose:
+runs a DeepSea stage while providing real-time visualization of its component
+steps as they are executed.
+
+.SH OPTIONS
+.B --help
+.RS
+Shows the help message.
+
+.RE
+.B --version
+.RS
+Show installed CephFS_Sync version.
+
+.RE
+.B -l <log_level>, --log-level=<log_level>
+.RS
+Sets log level. Possible values are:
+.B info
+.B error
+.B debug
+.B silent
+
+Defaults to:
+.B info
+
+.RE
+.B --log-file=<path>
+.RS
+Sets the log file location.
+
+Defaults to
+.B /var/log/cephfs-sync.log
+
+.SH SEE ALSO
+.BR deepsea-commands(1)
+

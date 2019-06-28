@@ -1,0 +1,55 @@
+#
+# spec file for package cephfs_sync
+#
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+# unify libexec for all targets
+%global _libexecdir %{_exec_prefix}/lib
+
+
+# See also http://en.opensuse.org/openSUSE:Shared_library_packaging_policy
+
+Name:           cephfs_sync
+Version:        DEVVERSION
+Release:        0
+Summary:        CephFS Snapshot Sync in between remote nodes/clusters
+
+License:        GPL-3.0
+Group:          System/Libraries
+Url:            https://github.com/oliveiradan/cephfs-sync
+Source0:        %{name}-%{version}.tar.bz2
+
+Group:          System/Console
+BuildRequires:  rsync
+Requires:       python3-click
+Requires:       python3-configobj
+Requires:       python3-PyYAML
+Requires:       python3-parallel-ssh
+Requires:       rsync
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildArch:      noarch
+Recommends:     deepsea
+
+%description
+A collection of tools used to synchronize CephFS Snapshots between
+remote nodes.
+
+%files
+%{_bindir}/cephfs_sync
+%{python3_sitelib}/cephfs_sync/
+%{python3_sitelib}/cephfs_sync-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/cephfs_sync-%{version}-py%{python3_version}.egg-info/*
+
+%changelog

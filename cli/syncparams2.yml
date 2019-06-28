@@ -1,3 +1,0 @@
-cephfs_synchronization:
-  - {sync_description: Synchronizing Point D, source_location: /storage/work/SUSE/suse-dev/cephfs_sync/tests/tgt, target_location: 127.0.0.1:/storage/work/SUSE/suse-dev/cephfs_sync/tests/src}
-  
