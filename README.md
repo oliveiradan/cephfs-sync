@@ -49,10 +49,10 @@ The format of the configuration file, is as follows:
 ```
 $ cat syncparams.yml 
 cephfs_synchronization:
-  - {sync_description: Synchronizing Point A, source_location: /src_cephfs_dir1, target_location: server2:/dst_backups/src_cephfs_dir1/}
-  - {sync_description: Synchronizing Point B, source_location: /src_cephfs_dir2, target_location: server3:/dst_backups/src_cephfs_dir2/}
-  - {sync_description: Synchronizing Point C, source_location: /src_cephfs_dir5, target_location: server1:/dst_backups/src_cephfs_dir5/}
-  - {sync_description: Synchronizing Point D, source_location: /src_cephfs_dir10, target_location: 192.168.20.10:/dst_backups/src_cephfs_dir10/}
+  - {sync_description: Synchronizing Point A, source_location: /src_cephfs_dir1, target_location: "server2:/dst_backups/src_cephfs_dir1/"}
+  - {sync_description: Synchronizing Point B, source_location: /src_cephfs_dir2, target_location: "server3:/dst_backups/src_cephfs_dir2/"}
+  - {sync_description: Synchronizing Point C, source_location: /src_cephfs_dir5, target_location: "server1:/dst_backups/src_cephfs_dir5/"}
+  - {sync_description: Synchronizing Point D, source_location: /src_cephfs_dir10, target_location: "192.168.20.10:/dst_backups/src_cephfs_dir10/"}
 ```
 
 Where: 
